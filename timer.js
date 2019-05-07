@@ -1,4 +1,4 @@
-// Setting it all up
+// Setting up the array
 
 let array1 = []
 
@@ -8,7 +8,9 @@ function populateArray(x, arr){
     }
 }
 
-populateArray(15000, array1)
+populateArray(15000, array1
+
+// Function to be time tested
 
 let reverseArray = function(arr) {
     var newArray = []
@@ -17,6 +19,8 @@ let reverseArray = function(arr) {
     }
     return newArray
 }
+
+// Logging array size
 
 console.log(array1.pop())
 
