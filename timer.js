@@ -22,14 +22,14 @@ let reverseArray = function(arr) {
 
 // Logging array size
 
-console.log(array1.pop())
+console.log(array1.length)
 
 // Timer and timing
 
 let start = new Date()
 let hrstart = process.hrtime()
 
-setTimeout(function(argument) {
+setTimeout(function() {
     // execution time simulated with setTimeout function
     let end = new Date() - start,
     hrend = process.hrtime(hrstart)
