@@ -1,3 +1,16 @@
+// csv automation
+
+const createCsvWriter = require('csv-writer').createObjectCsvWriter;
+const csvWriter = createCsvWriter({
+  path: 'out.csv',
+  header: [
+    {id: 'arraysize', title: 'Array Size'},
+    {id: 'time', title: 'Time'}
+  ]
+});
+
+let data = []
+
 // populate array
 
 const populateArray = (x, arr) => {
@@ -16,22 +29,25 @@ const reverseArray = (arr) => {
     return newArray
 }
 
+// const reverseArray = (arr) => {
+//     return arr.reverse()
+// }
+
 // timing code
 
-const bench = (func, input) => {
+const timer = (func, input) => {
 
     let medianArray = []
     /* any boilerplate code you want to have happen before the timer starts, perhaps copying a variable so it isn't mutated */
 
     for (let i = 0; i <= 100; i++) {
       let start = process.hrtime()
-        func(input)
-        end = process.hrtime(start)
-        medianArray.push(end)
+          func(input)
+          end = process.hrtime(start)
+          medianArray.push(end)
     }
-    console.log(medianArray.sort(), medianArray.length);
-    return medianArray.sort()[50]
-
+    let sort = medianArray.sort()
+    return sort[50]
 }
 
 // warmup code
@@ -45,28 +61,40 @@ const warmup = () => {
 
         populateArray(i, warmupArray)
 
-        bench(reverseArray, warmupArray)
+        timer(reverseArray, warmupArray)
     }
 }
 
-const timer = () => {
+// the main attraction
 
-    warmup()
+const arrayTimer = () => {
 
-    for(let i = 5000; i <= 5000; i += 5000) {
+    // warmup()
+
+    for(let i = 5000; i <= 100000; i += 5000) {
 
         let result = 0
         let testArray = []
 
         populateArray(i, testArray)
 
-        result = bench(reverseArray, testArray)
+        result = timer(reverseArray, testArray)
 
         console.log(testArray.length);
-
         console.info('%d%d', result[0], result[1])
 
+        data.push({
+          arraysize: testArray.length,
+          time: (result[0], result[1])
+        })
     }
 }
 
-timer()
+// call function
+
+arrayTimer()
+
+// write csv file
+csvWriter
+  .writeRecords(data)
+  .then(()=> console.log('The CSV file was written successfully'));
