@@ -69,7 +69,7 @@ const warmup = () => {
 
 const arrayTimer = () => {
 
-    // warmup()
+    warmup()
 
     for(let i = 5000; i <= 100000; i += 5000) {
 
