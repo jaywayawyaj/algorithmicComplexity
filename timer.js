@@ -8,7 +8,7 @@ function populateArray(x, arr){
     }
 }
 
-populateArray(100000, array1)
+populateArray(1000, array1)
 
 // Function to be time tested
 
@@ -35,5 +35,5 @@ setTimeout(function() {
     hrend = process.hrtime(hrstart)
 
     console.info('Execution time: %dms', end)
-    console.info('Execution time (hr): %ds %dms', hrend[0], hrend[1] / 1000000)
+    console.info('Execution time (hr): %d%d', hrend[0], hrend[1])
 }, reverseArray(array1))
