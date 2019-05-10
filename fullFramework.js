@@ -19,48 +19,34 @@ const populateArray = (x, arr) => {
     }
 }
 
-// function to test
+// imported functions to test
 
-const reverseArray = (arr) => {
-    var newArray = []
-    for (var i = arr.length - 1; i >= 0; i--) {
-        newArray.push(arr[i])
-    }
-    return newArray
-}
+// const reverseArray = require('./functions/reverseInBuilt')
+// const reverseArray = require('./functions/reverseNewArray')
+// const reverseArray = require('./functions/reversePop')
+const reverseArray = require('./functions/reverseAn')
 
-// const reverseArray = (arr) => {
-//     return arr.reverse()
-// }
 
 // timing code
 
 const timer = (func, input) => {
+  // console.log(input.length);
 
-    let medianArray = []
     /* any boilerplate code you want to have happen before the timer starts, perhaps copying a variable so it isn't mutated */
-
-    for (let i = 0; i <= 100; i++) {
-      let start = process.hrtime()
+          let start = process.hrtime()
           func(input)
-          end = process.hrtime(start)
-          medianArray.push(end)
+          let end = process.hrtime(start)
+          return end
     }
-    let sort = medianArray.sort()
-    return sort[50]
-}
 
 // warmup code
 
 const warmup = () => {
 
     for(let i = 5000; i <= 100000; i += 5000) {
-
         let result = 0
         let warmupArray = []
-
         populateArray(i, warmupArray)
-
         timer(reverseArray, warmupArray)
     }
 }
@@ -73,19 +59,23 @@ const arrayTimer = () => {
 
     for(let i = 5000; i <= 100000; i += 5000) {
 
-        let result = 0
-        let testArray = []
+    let testArray = []
+    let medianArray = []
 
+    for (let e = 0; e <= 100; e++) {
         populateArray(i, testArray)
+        medianArray.push(timer(reverseArray, testArray))
+    }
 
-        result = timer(reverseArray, testArray)
+        let sort = medianArray.sort()
+        let result = sort[50]
 
-        console.log(testArray.length);
+        console.log(i);
         console.info('%d%d', result[0], result[1])
 
         data.push({
-          arraysize: testArray.length,
-          time: (result[0], result[1])
+            arraysize: i,
+            time: (result[0], result[1])
         })
     }
 }
